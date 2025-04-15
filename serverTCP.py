@@ -3,7 +3,6 @@ import threading
 import configparser
 import os
 
-# === Lê configurações do config.ini ===
 config = configparser.ConfigParser()
 config.read('config.ini')
 TCP_PORT = int(config['SERVER_CONFIG']['TCP_PORT'])
@@ -41,7 +40,6 @@ def handle_tcp_transfer(conn, addr):
                 conn.sendall(data)
                 total_sent += len(data)
 
-        # Aguarda ACK
         conn.shutdown(socket.SHUT_WR)
         ack = conn.recv(1024).decode('utf-8')
         if ack.startswith("ftcp_ack"):
